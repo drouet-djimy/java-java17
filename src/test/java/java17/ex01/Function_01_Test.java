@@ -1,11 +1,10 @@
 package java17.ex01;
 
-import java.util.function.Function;
-
-import org.junit.Test;
-
 import java17.data.Account;
 import java17.data.Person;
+import org.junit.Test;
+
+import java.util.function.Function;
 
 
 /**
@@ -22,28 +21,35 @@ public class Function_01_Test {
     // TODO le nom sera de la forme "last_<ENTIER>"
     // TODO l'age sera de la forme "<ENTIER>"
     // TODO le mot de passe sera de la forme "pass_<ENTIER>"
-    private Function<Integer, Person> intToPerson = null;
+    //new Person("first_" + Entier, "last_" + Entier, Entier, "pass_" + Entier)
+    private Function<Integer, Person> intToPerson = (Integer i) -> {
+        return new Person("first_" + i, "last_" + i, i, "pass_" + i);
+    };
     // end::intToPerson[]
-
-    @Test
-    public void test_intToPerson() throws Exception {
-
-        // TODO invoquer la fonction intToPerson avec en paramètre l'entier 10.
-        Person result = null;
-
-        assert result.getFirstname().equals("first_10");
-        assert result.getLastname().equals("last_10");
-        assert result.getAge().equals(10);
-        assert result.getPassword().equals("pass_10");
-    }
-
     /******** PART 2 - Person -> Account *******/
 
     // tag::personToAccount[]
     // TODO Compléter la définition de cette fonction
     // TODO la propriété owner est valorisé avec la personne en paramètre
     // TODO la propriété balance est valorisé à 1000
-    private Function<Person, Account> personToAccount = null;
+    private Function<Person, Account> personToAccount = (Person p) -> {
+        Account account = new Account();
+        account.setOwner(p);
+        account.setBalance(1000);
+        return account;
+    };
+
+    @Test
+    public void test_intToPerson() throws Exception {
+
+        // TODO invoquer la fonction intToPerson avec en paramètre l'entier 10.
+        Person result = intToPerson.apply(10);
+
+        assert result.getFirstname().equals("first_10");
+        assert result.getLastname().equals("last_10");
+        assert result.getAge().equals(10);
+        assert result.getPassword().equals("pass_10");
+    }
     // end::personToAccount[]
 
     @Test
@@ -52,7 +58,7 @@ public class Function_01_Test {
         Person person = new Person("Jules", "France", 10, "pass");
 
         // TODO invoquer la fonction personToAccount
-        Account result = null;
+        Account result = personToAccount.apply(person);
 
         assert result.getOwner().equals(person);
         assert result.getBalance().equals(1000);

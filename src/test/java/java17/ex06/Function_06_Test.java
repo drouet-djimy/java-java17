@@ -17,8 +17,8 @@ public class Function_06_Test {
     // TODO compléter la méthode
     // TODO la méthode retourne une chaîne de caractères de la forme [age=<AGE>] (exemple : [age=12])
     String formatAge(Supplier<Person> supplier) {
-        // TODO
-        return null;
+        Person person = supplier.get();
+        return "[age=" + person.getAge() + "]";
     }
     // end::formatAge[]
 
